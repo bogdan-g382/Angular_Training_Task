@@ -1,0 +1,91 @@
+CoverLetter component
+
+<div id="main-container" class="container-fluid">
+    <div class="row">
+        <div class="flex-container col-sm-7 col-md-7 col-lg-8 col-xl-8">
+            <table class="cover-letters">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Profession</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">About</th>
+                        <th scope="col">Draft</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let letter of coverLetters">
+                        <td>{{letter.id}}</td>
+                        <td>{{letter.profession}}</td>
+                        <td>{{letter.name}}</td>
+                        <td>{{letter.about}}</td>
+                        <td>{{letter.draft}}</td>
+                        <td style="border: none;">
+                            <button type="button" class="btn btn-success">Edit</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="flex-container col-sm-5 col-md-5 col-lg-4 col-xl-4">
+            <div class="topic">Form</div>
+            <div class="edit-cover-letter">
+                <form [formGroup]="letterForm">
+                    <input id="id" class="input-block form-control" placeholder="ID" formControlName="id" required>
+                    <div *ngIf="id.invalid && id.touched" class="alert alert-danger">
+
+                        <div *ngIf="id.errors.required">
+                            id is required.
+                        </div>
+
+                        <div *ngIf="id.errors.pattern">
+                            id has to be an integer.
+                        </div>
+                    </div>
+
+                    <input class="input-block form-control" formControlName="profession" placeholder="Profession" required>
+                    <div *ngIf="profession.invalid && profession.touched" class="alert alert-danger">
+
+                        <div *ngIf="profession.errors.required">
+                            profession is required.
+                        </div>
+                        <div *ngIf="profession.errors.minlength">
+                            profession is too short
+                        </div>
+                        <div *ngIf="profession.errors.maxlength">
+                            profession is too long
+                        </div>
+                        <div *ngIf="profession.errors.pattern">
+                            profession can contains only latin symbols and spaces
+                        </div>
+                    </div>
+
+                    <input class="input-block form-control" formControlName="name" placeholder="Name" required>
+                    <div *ngIf="name.invalid && name.touched" class="alert alert-danger">
+                        <div *ngIf="name.errors.required">
+                            name is required
+                        </div>
+                        <div *ngIf="name.errors.minlength">
+                            name is too short
+                        </div>
+                        <div *ngIf="name.errors.maxlength">
+                            name is too long
+                        </div>
+                        <div *ngIf="name.errors.pattern">
+                            name can contains only latin symbols and spaces
+                        </div>
+                    </div>
+
+                    <input class="input-block form-control" formControlName="about" placeholder="About" required>
+                    <input type="checkbox" class="input-block form-control" formControlName="draft" placeholder="Draft">
+                </form>
+
+                <button type="submit" [disabled]="letterForm.invalid" class="save-btn"> 
+                    Save
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
