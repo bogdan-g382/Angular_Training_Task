@@ -1,15 +1,12 @@
-CoverLetter component
-
 <div id="main-container" class="container-fluid">
     <div class="row">
         <div class="flex-container col-sm-7 col-md-7 col-lg-8 col-xl-8">
-            <table class="cover-letters">
+            <table class="cover-letters table-dark">
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Profession</th>
                         <th scope="col">Name</th>
-                        <th scope="col">About</th>
                         <th scope="col">Draft</th>
                         <th scope="col"></th>
                     </tr>
@@ -19,10 +16,13 @@ CoverLetter component
                         <td>{{letter.id}}</td>
                         <td>{{letter.profession}}</td>
                         <td>{{letter.name}}</td>
-                        <td>{{letter.about}}</td>
-                        <td>{{letter.draft}}</td>
-                        <td style="border: none;">
-                            <button type="button" class="btn btn-success">Edit</button>
+                        <td>
+                            <input type="checkbox" readonly [checked]="letter.draft" id="letterDraft">
+                        </td>
+
+                        <td>
+                            <button type="button" class="btn btn-success" style="margin: 5px;" (click)=editLetter(letter.id)>Edit</button>
+                            <button type="button" class="btn btn-danger" style="margin: 5px;" (click)="deleteLetterByKey(letter.id)">Delete</button>
                         </td>
                     </tr>
                 </tbody>
@@ -32,16 +32,18 @@ CoverLetter component
         <div class="flex-container col-sm-5 col-md-5 col-lg-4 col-xl-4">
             <div class="topic">Form</div>
             <div class="edit-cover-letter">
-                <form [formGroup]="letterForm">
+                <form [formGroup]="letterForm" (ngSubmit)="createLetter(letterForm.value)">
                     <input id="id" class="input-block form-control" placeholder="ID" formControlName="id" required>
                     <div *ngIf="id.invalid && id.touched" class="alert alert-danger">
 
                         <div *ngIf="id.errors.required">
                             id is required.
                         </div>
-
+                        <div *ngIf="id.errors.max">
+                            id has to be smaller than 2^53 -1
+                        </div>
                         <div *ngIf="id.errors.pattern">
-                            id has to be an integer.
+                            id has to be a non-negative integer.
                         </div>
                     </div>
 
@@ -52,10 +54,10 @@ CoverLetter component
                             profession is required.
                         </div>
                         <div *ngIf="profession.errors.minlength">
-                            profession is too short
+                            profession must consists at least {{professionMinLength}} symbols
                         </div>
                         <div *ngIf="profession.errors.maxlength">
-                            profession is too long
+                            profession must consists not more than {{professionMaxLength}} symbols
                         </div>
                         <div *ngIf="profession.errors.pattern">
                             profession can contains only latin symbols and spaces
@@ -68,23 +70,33 @@ CoverLetter component
                             name is required
                         </div>
                         <div *ngIf="name.errors.minlength">
-                            name is too short
+                            name must consists at least {{nameMinLength}} symbols
                         </div>
                         <div *ngIf="name.errors.maxlength">
-                            name is too long
+                            name must consists not more than {{nameMaxLength}} symbols
                         </div>
                         <div *ngIf="name.errors.pattern">
                             name can contains only latin symbols and spaces
                         </div>
                     </div>
 
-                    <input class="input-block form-control" formControlName="about" placeholder="About" required>
-                    <input type="checkbox" class="input-block form-control" formControlName="draft" placeholder="Draft">
-                </form>
+                    <textarea class="textarea-block form-control" formControlName="about" placeholder="About"></textarea>
+                    <div *ngIf="about.invalid && about.touched" class="alert alert-danger">
+                        <div *ngIf="about.errors.minlength">
+                            about must consists at least {{aboutMinLength}} symbols
+                        </div>
+                        <div *ngIf="about.errors.maxlength">
+                            about must consists not more than {{aboutMaxLength}} symbols
+                        </div>
+                    </div>
 
-                <button type="submit" [disabled]="letterForm.invalid" class="save-btn"> 
-                    Save
-                </button>
+                    <div class="custom-control custom-checkbox" style="display: flex; justify-content:center">
+                        <input type="checkbox" class="input-block custom-control-input form-control" formControlName="draft" id="draftCheckbox">
+                        <label class="custom-control-label" for="draftCheckbox">Is drafted</label>
+                    </div>
+
+                    <button type="submit" [disabled]="letterForm.invalid" class="btn btn-success save-btn">Save</button>
+                </form>
             </div>
         </div>
     </div>

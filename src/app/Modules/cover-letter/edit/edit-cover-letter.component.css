@@ -1,0 +1,77 @@
+.cover-letters {
+    background: rgba(65, 65, 245, 0.61);
+    margin: 5px;
+    width: 100%;
+    table-layout: fixed;
+    word-wrap: break-word;
+}
+
+.edit-cover-letter {
+    background: rgba(51, 184, 51, 0.644);
+    border-radius: 25px;
+    width: 100%;
+    padding: 10px;
+    padding-top: 25px;
+}
+
+.cover-letters tr td {
+    border: rgba(37, 37, 37, 0.856) solid 2px;
+    text-align: center;
+}
+
+.cover-letters tr {
+    text-align: center;
+}
+
+.flex-container {
+    padding: 10px;
+    justify-content: center;
+}
+
+.topic {
+    text-align: center;
+    margin-bottom: 20px;
+    color: honeydew;
+}
+
+.input-block {
+    border: solid black 2px;
+    border-radius: 10px;
+    width: 100%;
+    text-align: center;
+    margin: 3px;
+    height: 35pt;
+    background: white;
+}
+
+.textarea-block {
+    border-style: inset;
+    border: solid black 2px;
+    border-radius: 10px;
+    width: 100%;
+    text-align: center;
+    margin: 3px;
+    height: 45pt;
+    resize: none;
+}
+
+.save-btn {
+    border: black solid 2px;
+    border-radius: 10px;
+    width: 30%;
+    height: 40pt;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 20px;
+    display: block;
+}
+
+input[type="checkbox"][readonly] {
+    pointer-events: none;
+}
+
+button {
+    margin: 5px;
+    width: 70px;
+    height: 45px;
+}

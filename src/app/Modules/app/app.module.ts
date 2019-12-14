@@ -4,7 +4,8 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from 'src/app/Modules/app/app-routing.module';
 import { AppComponent } from 'src/app/Modules/app/app.component';
 import { InfoModule } from 'src/app/Modules/info/info.module';
-import { CoverLetterModule } from '../cover-letter/cover-letter.module';
+import { CoverLetterModule } from 'src/app/Modules/cover-letter/cover-letter.module';
+import { CoverLetterService } from 'src/app/services/CoverLetter/cover-letter.service';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,7 @@ import { CoverLetterModule } from '../cover-letter/cover-letter.module';
     CoverLetterModule,
     InfoModule
   ],
-  providers: [],
+  providers: [CoverLetterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

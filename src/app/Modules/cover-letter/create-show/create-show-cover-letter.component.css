@@ -1,7 +1,8 @@
  .cover-letters {
-     background: rgba(65, 65, 245, 0.61);
      margin: 5px;
      width: 100%;
+     table-layout: fixed;
+     word-wrap: break-word;
  }
  
  .edit-cover-letter {
@@ -24,12 +25,13 @@
  
  .flex-container {
      padding: 10px;
-     border: black solid 2px;
+     justify-content: center;
  }
  
  .topic {
      text-align: center;
      margin-bottom: 20px;
+     color: honeydew;
  }
  
  .input-block {
@@ -39,6 +41,18 @@
      text-align: center;
      margin: 3px;
      height: 35pt;
+     background: white;
+ }
+ 
+ .textarea-block {
+     border-style: inset;
+     border: solid black 2px;
+     border-radius: 10px;
+     width: 100%;
+     text-align: center;
+     margin: 3px;
+     height: 45pt;
+     resize: none;
  }
  
  .save-btn {
@@ -50,4 +64,8 @@
      margin: 0 auto;
      margin-top: 20px;
      display: block;
+ }
+ 
+ input[type="checkbox"][readonly] {
+     pointer-events: none;
  }
