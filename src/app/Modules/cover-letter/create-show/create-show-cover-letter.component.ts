@@ -67,10 +67,7 @@ export class CreateShowCoverLetterComponent implements OnInit {
         Validators.maxLength(this.nameMaxLength),
         Validators.pattern("[-a-zA-Z ]+")
       ]),
-      'about': new FormControl('', [
-        Validators.minLength(this.aboutMinLength),
-        Validators.maxLength(this.aboutMaxLength)
-      ]),
+      'about': new FormControl('', []),
       'draft': new FormControl(true, [])
     });
   }

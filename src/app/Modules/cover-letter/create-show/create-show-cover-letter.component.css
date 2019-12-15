@@ -1,8 +1,52 @@
  .cover-letters {
-     margin: 5px;
      width: 100%;
      table-layout: fixed;
      word-wrap: break-word;
+     border: rgb(0, 0, 0) solid 3px;
+     border-radius: 15px;
+     display: flex;
+     flex-direction: column;
+     padding: 3px;
+ }
+ 
+ .table-columns {
+     display: flex;
+     flex-direction: row;
+ }
+ 
+ .table-head-column {
+     width: 30%;
+     height: auto;
+     text-align: center;
+     border-right: rgb(61, 61, 61) solid 2px;
+     border-left: rgb(61, 61, 61) solid 2px;
+     border-top: rgb(61, 61, 61) solid 2px;
+     border-bottom: rgb(61, 61, 61) solid 2px;
+     background-color: rgb(94, 94, 94);
+     font-weight: bold;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     flex-flow: row wrap;
+     overflow-x: auto;
+ }
+ 
+ .table-column {
+     width: 30%;
+     height: auto;
+     text-align: center;
+     vertical-align: middle;
+     border-right: rgb(61, 61, 61) solid 2px;
+     border-left: rgb(61, 61, 61) solid 2px;
+     border-top: rgb(61, 61, 61) solid 2px;
+     border-bottom: rgb(61, 61, 61) solid 2px;
+     background-color: rgb(37, 37, 37);
+     display: flex;
+     vertical-align: middle;
+     justify-content: center;
+     align-items: center;
+     flex-flow: row wrap;
+     overflow-x: auto;
  }
  
  .edit-cover-letter {
@@ -15,7 +59,8 @@
  }
  
  .cover-letters tr td {
-     border: rgba(37, 37, 37, 0.856) solid 2px;
+     border: rgba(37, 37, 37, 0.856) solid 3px;
+     border-radius: 15px;
      text-align: center;
  }
  
@@ -73,4 +118,5 @@
  .jumbotron {
      background-color: rgb(29, 29, 29);
      border-radius: 40px;
+     margin: 5px;
  }

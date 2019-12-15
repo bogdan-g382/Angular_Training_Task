@@ -55,14 +55,6 @@
                     </div>
 
                     <textarea class="textarea-block form-control" formControlName="about" placeholder="About"></textarea>
-                    <div *ngIf="about.invalid && about.touched" class="alert alert-danger">
-                        <div *ngIf="about.errors.minlength">
-                            about must consists at least {{aboutMinLength}} symbols
-                        </div>
-                        <div *ngIf="about.errors.maxlength">
-                            about must consists not more than {{aboutMaxLength}} symbols
-                        </div>
-                    </div>
 
                     <div *ngIf="oldLetter.draft" class="custom-control custom-checkbox" style="display: flex; justify-content:center">
                         <input type="checkbox" class="input-block custom-control-input form-control" formControlName="draft" id="draftCheckbox">

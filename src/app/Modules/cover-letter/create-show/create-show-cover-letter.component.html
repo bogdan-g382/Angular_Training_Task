@@ -1,8 +1,8 @@
-<div id="main-container" class="container-fluid">
+<div class="container-fluid main-container">
     <div class="row">
-        <div class="flex-container col-sm-7 col-md-7 col-lg-8 col-xl-8">
+        <div class="flex-container col-md-7 col-lg-8 col-xl-8">
 
-            <div *ngIf="isNoLetters()" class="jumbotron jumbotron-fluid">
+            <div *ngIf="isNoLetters()" class="no-letters-jumborton jumbotron jumbotron-fluid">
                 <div class="container">
                     <h1 class="display-5">There is no any letters</h1>
                     <p class="lead">We haven't any letters in our database</p>
@@ -10,37 +10,32 @@
             </div>
 
 
-            <table *ngIf="!isNoLetters()" class="cover-letters table-dark">
-                <thead>
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Profession</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Draft</th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let letter of coverLetters">
-                        <td>{{letter.id}}</td>
-                        <td>{{letter.profession}}</td>
-                        <td>{{letter.name}}</td>
-                        <td>
-                            <input type="checkbox" readonly [checked]="letter.draft" id="letterDraft">
-                        </td>
+            <div *ngIf="!isNoLetters()" class="cover-letters">
+                <div class="table-columns">
+                    <div class="table-head-column" style="width: 10%;">ID</div>
+                    <div class="table-head-column">Profession</div>
+                    <div class="table-head-column">Name</div>
+                    <div class="table-head-column" style="width: 10%;">Draft</div>
+                    <div class="table-head-column" style="width: 60%;"></div>
+                </div>
+                <div *ngFor="let letter of coverLetters" class="table-columns">
+                    <div class="table-column" style="width: 10%;">{{letter.id}}</div>
+                    <div class="table-column">{{letter.profession}}</div>
+                    <div class="table-column">{{letter.name}}</div>
+                    <div class="table-column" style="width: 10%;">
+                        <input type="checkbox" readonly [checked]="letter.draft" id="letterDraft">
+                    </div>
 
-                        <td>
-                            <button type="button" class="btn btn-success" style="margin: 5px;" (click)=editLetter(letter.id)>Edit</button>
-                            <button type="button" class="btn btn-danger" style="margin: 5px;" (click)="deleteLetterById(letter.id)">Delete</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                    <div class="table-column" style="width: 60%;">
+                        <button type="button" class="btn btn-success" style="margin: 5px;" (click)=editLetter(letter.id)>Edit</button>
+                        <button type="button" class="btn btn-danger" style="margin: 5px;" (click)="deleteLetterById(letter.id)">Delete</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="flex-container col-sm-5 col-md-5 col-lg-4 col-xl-4">
-            <div class="topic">Form</div>
-            <div class="edit-cover-letter">
+        <div class="flex-container col-md-5 col-lg-4 col-xl-4">
+            <div class="edit-cover-letter main-container">
                 <form [formGroup]="letterForm" (ngSubmit)="createLetter(letterForm.value)">
                     <input id="id" class="input-block form-control" placeholder="ID" formControlName="id" required>
                     <div *ngIf="id.invalid && id.touched" class="alert alert-danger">
@@ -89,15 +84,7 @@
                         </div>
                     </div>
 
-                    <textarea class="textarea-block form-control" formControlName="about" placeholder="About"></textarea>
-                    <div *ngIf="about.invalid && about.touched" class="alert alert-danger">
-                        <div *ngIf="about.errors.minlength">
-                            about must consists at least {{aboutMinLength}} symbols
-                        </div>
-                        <div *ngIf="about.errors.maxlength">
-                            about must consists not more than {{aboutMaxLength}} symbols
-                        </div>
-                    </div>
+                    <textarea class="textarea-block form-control" placeholder="About" formControlName="about"></textarea>
 
                     <div class="custom-control custom-checkbox" style="display: flex; justify-content:center">
                         <input type="checkbox" class="input-block custom-control-input form-control" formControlName="draft" id="draftCheckbox">
