@@ -69,3 +69,8 @@
  input[type="checkbox"][readonly] {
      pointer-events: none;
  }
+ 
+ .jumbotron {
+     background-color: rgb(29, 29, 29);
+     border-radius: 40px;
+ }

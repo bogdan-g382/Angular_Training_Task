@@ -7,7 +7,7 @@
             <div class="topic">Form</div>
             <div class="edit-cover-letter">
                 <form [formGroup]="editingForm">
-                    <input [readonly]="!editingLetter.draft" id="id" class="input-block form-control" placeholder="ID" formControlName="id" required>
+                    <input [readonly]="!oldLetter.draft" id="id" class="input-block form-control" placeholder="ID" formControlName="id" required>
                     <div *ngIf="id.invalid && id.touched" class="alert alert-danger">
 
                         <div *ngIf="id.errors.required">
@@ -64,7 +64,7 @@
                         </div>
                     </div>
 
-                    <div *ngIf="editingLetter.draft" class="custom-control custom-checkbox" style="display: flex; justify-content:center">
+                    <div *ngIf="oldLetter.draft" class="custom-control custom-checkbox" style="display: flex; justify-content:center">
                         <input type="checkbox" class="input-block custom-control-input form-control" formControlName="draft" id="draftCheckbox">
                         <label class="custom-control-label" for="draftCheckbox">Is drafted</label>
                     </div>

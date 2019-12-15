@@ -10,6 +10,8 @@ import { AboutMinLength } from 'src/app/Constants/CoverLetter/About/aboutMinLeng
 import { CoverLetterService } from 'src/app/services/CoverLetter/cover-letter.service';
 import { Router } from '@angular/router';
 
+declare let toastr: any;
+
 @Component({
   selector: 'create-show-cover-letter',
   templateUrl: './create-show-cover-letter.component.html',
@@ -31,7 +33,7 @@ export class CreateShowCoverLetterComponent implements OnInit {
     this.coverLetterService.openDatabase().then(fullfilled => {
       this.loadLetters();
     }, rejected => {
-      alert("Index db error. " + rejected.error.message);
+      toastr.error("Index db error. " + rejected.error.message);
     });
   }
 
@@ -73,21 +75,23 @@ export class CreateShowCoverLetterComponent implements OnInit {
     });
   }
 
+  public isNoLetters(): boolean {
+    return this.coverLetters.length == 0;
+  }
+
   createLetter(newLetter: CoverLetter) {
     let request = this.coverLetterService.addLetter(newLetter);
     request.onsuccess = () => {
       this.coverLetters.push(newLetter);
-      this.letterForm.setValue({
-        'id': '',
-        'profession': '',
-        'name': '',
-        'about': '',
-        'draft': true
-      });
+      this.letterForm.reset();
     }
 
     request.onerror = () => {
-      alert("Index db error. " + request.error.message);
+      if (request.error.name === "ConstraintError") {
+        toastr.error("Id has to be unique");
+        return;
+      }
+      toastr.error("Index db error. " + request.error.message);
     }
   }
 
@@ -106,7 +110,7 @@ export class CreateShowCoverLetterComponent implements OnInit {
     }
 
     request.onerror = () => {
-      alert("Index db error. " + request.error.message);
+      toastr.error("Index db error. " + request.error.message);
     }
   }
 
@@ -122,8 +126,7 @@ export class CreateShowCoverLetterComponent implements OnInit {
     }
 
     request.onerror = () => {
-      alert("Index db error. " + request.error.message);
+      toastr.error("Index db error. " + request.error.message);
     }
   }
-
 }

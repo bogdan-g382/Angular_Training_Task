@@ -2,6 +2,11 @@ import { Injectable } from '@angular/core';
 import { DatabaseName } from 'src/app/Constants/IndexDB/databaseName';
 import { CoverLetterStoreName } from 'src/app/Constants/IndexDB/coverLetterStoreName';
 import { CoverLetter } from 'src/app/Models/coverLetter';
+import { ToastrTimeOut } from 'src/app/Constants/Toastr/toastrTimeOut';
+import { ToastrExtendedTimeOut } from 'src/app/Constants/Toastr/toastrExtendedTimeOut';
+import { ToastrService } from '../Toastr/toastr.service';
+
+declare let toastr:any;
 
 @Injectable({
   providedIn: 'root'
@@ -10,18 +15,23 @@ export class CoverLetterService {
 
   private database: IDBDatabase;
 
-  constructor() {
+  constructor(private toastrService:ToastrService) {
+    this.toastrService.setDefaultToastTimeout();
   }
 
   public openDatabase() {
     return new Promise(resolve => {
       if (!window.indexedDB) {
-        alert("Danger. Your browser doesn't support IndexDB stable version!");
+        this.toastrService.setPermanentToast();
+
+        toastr.warning("Danger. Your browser doesn't support IndexDB stable version!");
+
+        this.toastrService.setDefaultToastTimeout();
       }
       let request = indexedDB.open(DatabaseName, 2);
 
       request.onerror = () => {
-        alert("Index db error. " + request.error.message);
+        toastr.error("Index db error. " + request.error.message);
       }
 
       request.onsuccess = () => {

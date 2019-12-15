@@ -10,6 +10,8 @@ import { ProfessionMinLength } from 'src/app/Constants/CoverLetter/Profession/na
 import { AboutMinLength } from 'src/app/Constants/CoverLetter/About/aboutMinLength';
 import { AboutMaxLength } from 'src/app/Constants/CoverLetter/About/aboutMaxLength';
 
+declare let toastr: any;
+
 @Component({
   selector: 'app-edit-cover-letter',
   templateUrl: './edit-cover-letter.component.html',
@@ -17,7 +19,7 @@ import { AboutMaxLength } from 'src/app/Constants/CoverLetter/About/aboutMaxLeng
 })
 export class EditCoverLetterComponent implements OnInit {
 
-  public editingLetter: CoverLetter;
+  public oldLetter = new CoverLetter();
   public oldLetterId = 0;
   private editingForm: FormGroup;
 
@@ -41,23 +43,23 @@ export class EditCoverLetterComponent implements OnInit {
         let request = this.coverLetterService.getLetterById(oldLetterId);
 
         request.onsuccess = () => {
-          this.editingLetter = request.result;
+          this.oldLetter = request.result;
           this.editingForm.setValue(
             {
-              id: this.editingLetter.id,
-              profession: this.editingLetter.profession,
-              name: this.editingLetter.name,
-              about: this.editingLetter.about,
-              draft: this.editingLetter.draft
+              id: this.oldLetter.id,
+              profession: this.oldLetter.profession,
+              name: this.oldLetter.name,
+              about: this.oldLetter.about,
+              draft: this.oldLetter.draft
             });
         }
 
         request.onerror = () => {
-          alert("Index db error. " + request.error.message);
+          toastr.error("Index db error. " + request.error.message);
         }
 
       }, rejected => {
-        alert("Index db error. " + rejected.error.message);
+        toastr.error("Index db error. " + rejected.error.message);
       });
     });
   }
@@ -86,7 +88,7 @@ export class EditCoverLetterComponent implements OnInit {
         Validators.minLength(this.aboutMinLength),
         Validators.maxLength(this.aboutMaxLength)
       ]),
-      'draft': new FormControl('', [])
+      'draft': new FormControl(true, [])
     });
   }
 
@@ -98,7 +100,7 @@ export class EditCoverLetterComponent implements OnInit {
 
 
   public saveEdited(letter: CoverLetter) {
-    if (this.editingLetter.id === this.oldLetterId) {
+    if (letter.id === this.oldLetterId) {
       let request = this.coverLetterService.updateLetter(letter);
 
       request.onsuccess = () => {
@@ -106,7 +108,7 @@ export class EditCoverLetterComponent implements OnInit {
       }
 
       request.onerror = () => {
-        alert("Index db error. " + request.error.message);
+        toastr.error("Index db error. " + request.error.message);
       }
     }
 
@@ -119,11 +121,11 @@ export class EditCoverLetterComponent implements OnInit {
         }
 
         request.onerror = () => {
-          alert("Index db error. " + request.error.message);
+          toastr.error("Index db error. " + request.error.message);
         }
       }
       request.onerror = () => {
-        alert("Index db error. " + request.error.message);
+        toastr.error("Index db error. " + request.error.message);
       }
     }
   }

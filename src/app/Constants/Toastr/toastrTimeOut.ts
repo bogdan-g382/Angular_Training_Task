@@ -1,0 +1,1 @@
+export const ToastrTimeOut = 3000;
